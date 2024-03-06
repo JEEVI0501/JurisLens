@@ -1,0 +1,85 @@
+.mainNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 70px;
+    position: fixed;
+    background: #ffffff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0%;
+    top: 0;
+    width: 100vw;
+    z-index: 10;
+}
+
+.logosvg {
+    max-width: 116px;
+}
+
+.logoDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 20px 20px;
+}
+
+.Navmenu {
+    /* margin: 20px 500px; */
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.normalNav {
+    color: #000000;
+    font-weight: 500;
+    font-size: "25px";
+    padding-right: 120px;
+    line-height: 18px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+
+.normalNav,
+.normalNav:focus,
+.normalNav:hover {
+    font-weight: 500;
+    color: #000000;
+}
+
+.active,
+.normalNav:hover,
+.normalNav:focus {
+    font-weight: 700;
+    color: #466988;
+}
+
+.active {
+    color: #466988;
+}
+
+.Navmenu .active {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #466988;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.navProfileImg {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin: 10px;
+}
+.grad{
+        background: linear-gradient(to right, #4e6c8d, #C2C266);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+}

@@ -1,0 +1,46 @@
+.blog {
+    max-width: 360px;
+    margin: 1% 3%;
+}
+
+.blog2 {
+    max-width: 358px;
+    display: flex;
+    margin: 10px 0;
+}
+
+.blog2,
+.blog img {
+    border-radius: 5px;
+}
+
+.blogHeading {
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 25px;
+    color: #C2C266;
+}
+
+.blogSubHead {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #4e6c8d;
+}
+
+.blogLink {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: right;
+    text-decoration: none;
+}
+
+.contactUs {
+    background: linear-gradient(to right, #4e6c8d, #C2C266);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
