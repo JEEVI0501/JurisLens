@@ -6,6 +6,7 @@ import SignUp from './Components/Authentication/signup';
 import NavBar from './Components/Navbar/NavBar';
 import Home from './Components/Home/Home';
 import IPCLookUp from './Components/IPCLookUp/IPCLookUp';
+import Lens from './Components/The_Lens/Lens';
 
 const theme = createTheme({
   typography: {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/IPC-LookUp" element={<IPCLookUp />} />
+            <Route path="/lens" element={<Lens />} />
           </Routes>
         </div>
       </Router>

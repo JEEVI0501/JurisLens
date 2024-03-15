@@ -27,7 +27,7 @@ export default function NavBar() {
             <Link to="/IPC-LookUp" style={{ textDecoration: "none", color: "#C2C266" }}>IPC LookUp</Link>
           </li>
           <li style={{ margin: "0 50px" }}>
-            <Link to="/feature2" style={{ textDecoration: "none", color: "#C2C266" }}>Feature 2</Link>
+            <Link to="/lens" style={{ textDecoration: "none", color: "#C2C266" }}>The Lens</Link>
           </li>
           <li style={{ margin: "0 50px" }}>
             <Link to="/analytics" style={{ textDecoration: "none", color: "#C2C266" }}>Analytics</Link>
