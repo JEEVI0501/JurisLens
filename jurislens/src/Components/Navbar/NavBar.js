@@ -6,9 +6,35 @@ import Login from "../Authentication/login";
 import Signup from "../Authentication/signup";
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import logo from '../../assets/logo.png';
-export default function NavBar() {
+import { useNavigate, useLocation } from 'react-router-dom';
 
-  const [isOpen, setIsOpen] = useState(true);
+export default function NavBar() {
+  const navigate = useNavigate();
+   const [accessToken, setAccessToken] = useState(null); 
+  const location = useLocation();
+  // const [isOpen, setIsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(location.pathname);
+
+  useEffect(() => {
+    setCurrentPage(location.pathname);
+  }, [location.pathname]);
+
+
+useEffect(() => {
+    setAccessToken(localStorage.getItem('accessToken'))
+  }, []);
+
+
+  const handleUsersIconClick = () => {
+    setCurrentPage("/users");
+    navigate("/users");
+  };
+  
+  const handleLogout = () => {
+    // setIsOpen(false);
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  };
     return (
     <div>
     <header className="mainNavBar">
@@ -20,7 +46,8 @@ export default function NavBar() {
         />
       </div>
 
-       {/* ( */}
+    {accessToken || localStorage.getItem('accessToken') ?  (
+      <>
       <div style={{ display: "flex", justifyContent: "center", }}>
         <ul className="Navmenu" style={{ display: "flex", justifyContent: "center", listStyleType: "none", padding: 0 }}>
           <li style={{ margin: "0 50px" }}>
@@ -28,6 +55,9 @@ export default function NavBar() {
           </li>
           <li style={{ margin: "0 50px" }}>
             <Link to="/lens" style={{ textDecoration: "none", color: "#C2C266" }}>The Lens</Link>
+          </li>
+          <li style={{ margin: "0 50px" }}>
+            <Link to="/sim-cases" style={{ textDecoration: "none", color: "#C2C266" }}>Case Match</Link>
           </li>
           <li style={{ margin: "0 50px" }}>
             <Link to="/analytics" style={{ textDecoration: "none", color: "#C2C266" }}>Analytics</Link>
@@ -45,17 +75,14 @@ export default function NavBar() {
           size="small"
           className='grad'
           style={{margin: "0 40px"}}
+          onClick={handleLogout}
         >
           Logout
         </Button>
       </div>
-      {/* ) : (  */}
-
-
-
-
-{/* 
-        <div>
+      </>
+      ) : ( 
+       <div>
           <Link to="/login" className="no-underline">
             <Button
               variant="contained"
@@ -78,13 +105,8 @@ export default function NavBar() {
               Sign Up
             </Button>
           </Link>
-        </div> */}
-
-
-
-
-
-      {/* ) */}
+        </div>
+      )}
     </header>
         </div>
     )

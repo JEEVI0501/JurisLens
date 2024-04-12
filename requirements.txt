@@ -1,0 +1,9 @@
+databases==0.5.7
+fastapi==0.70.0
+passlib==1.7.4
+python-jose==3.3.0
+pydantic==1.9.0
+rank-bm25==0.2.1
+sentence-transformers==2.1.0
+sqlalchemy==1.4.32
+uvicorn==0.15.0

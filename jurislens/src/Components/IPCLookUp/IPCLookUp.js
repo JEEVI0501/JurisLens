@@ -1,51 +1,22 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
+import { lookupIpc as apiLookUpIpc} from '../API_layer/features';
 
 const IPCLookUp = () => {
   const [expanded, setExpanded] = useState(null);
-
-  const rectanglesData = [
-    { id: 1, title: 'IPC section 140', description: 'Wearing garb or carrying token used by soldier, sailor or airman' },
-    { id: 2, title: 'IPC section 141', description: 'Wearing garb or carrying token used by soldier, sailor or airman' },
-    { id: 3, title: 'IPC section 142', description: 'Wearing garb or carrying token used by soldier, sailor or airman' },
-  ];
+  const [query,setquery] = useState(null);
+  const [ipcData, setIpcData] = useState([]);
+  const [table_Ipc,setTable_Ipc] = useState([]);
 
     const columns = [
+    
+    { title: 'Bail', field: 'bail' },
     { title: 'Offence', field: 'offence' },
     { title: 'Punishment', field: 'punishment' },
     { title: 'Cognizance', field: 'cognizance' },
-    { title: 'Bail', field: 'bail' },
-    { title: 'Tribable', field: 'tribable' },
-  ];
-
-    const data = [
-    {
-      id:1,
-      offence: 'Offence 1',
-      punishment: 'Punishment 1',
-      cognizance: 'Cognizance 1',
-      bail: 'Bail 1',
-      tribable: 'Tribable 1',
-    },
-    {
-      id:2,
-      offence: 'Offence 2',
-      punishment: 'Punishment 2',
-      cognizance: 'Cognizance 2',
-      bail: 'Bail 2',
-      tribable: 'Tribable 2',
-    },
-    {
-      id:3,
-      offence: 'Offence 3',
-      punishment: 'Punishment 3',
-      cognizance: 'Cognizance 3',
-      bail: 'Bail 3',
-      tribable: 'Tribable 3',
-    },
   ];
 
   const handleRectangleClick = (id) => {
@@ -56,23 +27,65 @@ const IPCLookUp = () => {
     }
   };
 
+const lookupIpc = () => {
+  console.log("q", query);
+  
+  if (query != null) {
+    apiLookUpIpc(query)
+      .then(response => {
+        console.log(response);
+        const responseArray = Object.values(response);
+
+        const formattedResponse = responseArray.map((item, index) => ({
+          id: index + 1,
+          title: `IPC section ${item[0]}`,
+          description: item[1],
+
+        }));
+
+        console.log(formattedResponse);
+        setIpcData(formattedResponse);
+          const tabdata = responseArray.map((item, index) => ({
+          id: index + 1,
+          bail: item[3],
+          offence: item[4],
+          punishment: item[5],
+          cognizance: item[6] ,
+
+        }));
+        setTable_Ipc(tabdata);
+      })
+      .catch(error => {
+        console.error("Error occurred:", error);
+      });
+      
+  }
+};
+
+
   return (
     <div style={{ marginTop: '100px', position: 'relative' ,}}>
       <div style={{ marginTop: '80px', position: 'relative', textAlign: 'center' }}>
-        <TextField
-          id="search-bar"
-          variant="outlined"
-          placeholder="Search..."
-          size="small"
-          style={{ width: '400px' }}
-        />
-        <IconButton type="submit" aria-label="search">
+       <TextField
+        id="search-bar"
+        variant="outlined"
+        placeholder="Search..."
+        size="small"
+        style={{ width: '400px' }}
+        onChange={(event) => {
+         const { value } = event.target;
+          setquery(value);
+          setIpcData([])
+          setTable_Ipc([])}}
+      />
+
+        <IconButton type="submit" aria-label="search" onClick={lookupIpc}>
           <SearchIcon sx={{color:'#4e6c8d'}}/>
         </IconButton>
       </div>
     <div style={{ marginTop: '40px', position: 'relative' ,marginRight:'200px',marginLeft:'200px'}}>
-      {rectanglesData.map(rectangle => (
-  <div key={rectangle.id} style={{ marginBottom: '20px', backgroundColor: '#B1B66B', padding: '10px', borderRadius: '10px' }}>
+      {ipcData.map(rectangle => (
+  <div key={rectangle.id} style={{ marginBottom: '20px', backgroundColor: '#B1B66B', padding: '30px', borderRadius: '10px'}}>
     <div style={{ cursor: 'pointer' }} onClick={() => handleRectangleClick(rectangle.id)}>
       <h3>{rectangle.title}</h3>
       {expanded === rectangle.id && (
@@ -87,18 +100,17 @@ const IPCLookUp = () => {
               </tr>
             </thead>
             <tbody>
-              {data
+              {table_Ipc
                 .filter(row => row.id === rectangle.id)
                 .map(row => (
                   <tr key={row.id}>
                     {columns.map(column => (
-                      <td key={column.field} style={{ border: '1px solid black', padding: '8px' }}>{row[column.field]}</td>
+                      <td key={column.field} style={{ border: '1px solid black', padding: '8px',textAlign:'center' }}>{row[column.field]}</td>
                     ))}
                   </tr>
                 ))}
             </tbody>
           </table>
-          <Button sx={{marginTop:'15px'}}>Simple Explanation</Button>
         </div>
       )}
     </div>
